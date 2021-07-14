@@ -7,6 +7,7 @@ import {
   ProcessImageNavigationProps,
   ProcessImageRouteProps,
 } from '../navigation/Navigator';
+import {recognizeImage} from '../mlkit';
 
 interface ProcessImageScreenProps {
   navigation: ProcessImageNavigationProps;
@@ -25,7 +26,9 @@ export const ProcessImageScreen = ({route}: ProcessImageScreenProps) => {
   }, [uri]);
 
   const proccessImage = async (url: string) => {
-
+    if (url) {
+      recognizeImage(url);
+    }
   };
 
   return (
