@@ -33,14 +33,6 @@ export const SelectImageScreen = ({navigation}: SelectImageScreenProps) => {
       ImagePicker.launchImageLibrary(options, setResponse);
     }
   }, []);
-  //
-  // React.useEffect(() => {
-  //   if (response) {
-  //     navigation.navigate(routes.PROCESS_IMAGE_SCREEN, {
-  //       uri: response?.assets?.[0]?.uri!!,
-  //     });
-  //   }
-  // }, [response, navigation]);
 
   const onProcessImage = () => {
     if (response) {
