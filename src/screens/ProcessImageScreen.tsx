@@ -27,7 +27,12 @@ export const ProcessImageScreen = ({route}: ProcessImageScreenProps) => {
 
   const proccessImage = async (url: string) => {
     if (url) {
-      recognizeImage(url);
+      try {
+        const response = await recognizeImage(url);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
