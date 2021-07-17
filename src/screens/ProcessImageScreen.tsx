@@ -7,7 +7,8 @@ import {
   ProcessImageNavigationProps,
   ProcessImageRouteProps,
 } from '../navigation/Navigator';
-import {recognizeImage} from '../mlkit';
+import {recognizeImage, Response} from '../mlkit';
+import {ResponseRenderer} from '../components/ResponseRenderer';
 
 interface ProcessImageScreenProps {
   navigation: ProcessImageNavigationProps;
@@ -17,6 +18,7 @@ interface ProcessImageScreenProps {
 export const ProcessImageScreen = ({route}: ProcessImageScreenProps) => {
   const {width: windowWidth} = useWindowDimensions();
   const [aspectRatio, setAspectRation] = useState(1);
+  const [response, setResposne] = useState<Response | undefined>(undefined);
   const uri = route.params.uri;
 
   useEffect(() => {
@@ -30,6 +32,10 @@ export const ProcessImageScreen = ({route}: ProcessImageScreenProps) => {
       try {
         const response = await recognizeImage(url);
         console.log(response);
+        if (response?.blocks?.length > 0) {
+          setResposne(response);
+          setAspectRation(response.height / response.width);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -43,6 +49,12 @@ export const ProcessImageScreen = ({route}: ProcessImageScreenProps) => {
         style={{width: windowWidth, height: windowWidth * aspectRatio}}
         resizeMode="cover"
       />
+      {!!response && (
+        <ResponseRenderer
+          response={response}
+          scale={windowWidth / response.width}
+        />
+      )}
     </ScrollView>
   );
 };
