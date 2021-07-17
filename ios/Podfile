@@ -11,6 +11,8 @@ target 'RNMLKitTutorial' do
     # to enable hermes on iOS, change `false` to `true` and then install pods
     :hermes_enabled => false
   )
+  
+  pod 'GoogleMLKit/TextRecognition'
 
   target 'RNMLKitTutorialTests' do
     inherit! :complete
